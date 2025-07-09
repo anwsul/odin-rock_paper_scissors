@@ -1,40 +1,50 @@
 let humanScore = 0;
 let computerScore = 0;
 
+console.log("--------------------------")
+console.log("ROCK, PAPER, SCISSORS GAME")
+console.log("--------------------------")
+
 
 function getComputerChoice () {
   let choices = ["rock", "paper", "scissors"];
-  let index = Math.floor(Math.random() * 10) % 3;
+  let index = Math.floor(Math.random() * 3);
   return choices[index];
 }
 
 
 function getHumanChoice () {
-  return prompt("What is your chioice");
+  let humanChoice;
+
+  do {
+    console.log("Choices: rock, paper, or scissors")
+    humanChoice = prompt("What is your chioice").toLowerCase();
+  } while (humanChoice != "rock" && humanChoice != "paper" && humanChoice != "scissors"); 
+
+  return humanChoice;
 }
 
 
 function playRound (humanChoice, computerChoice) {
-  humanChoice = humanChoice.toLowerCase();
-
   if (humanChoice == computerChoice) {
-    console.log("DRAW");
+    console.log(`DRAW: ${humanChoice} draws with ${computerChoice}`)
   } else if (
     (humanChoice == "rock" && computerChoice == "scissors") ||
     (humanChoice == "paper" && computerChoice == "rock") ||
     (humanChoice == "scissors" && computerChoice == "paper")) {
-    console.log("YOU WIN!");
+    console.log(`YOU SCORED: ${humanChoice} beats ${computerChoice}`)
     humanScore += 1;
   } else {
-    console.log("YOU LOSE!");
     computerScore += 1;
+    console.log(`COMPUTER SCORED: ${humanChoice} is beaten by ${computerChoice}`)
   }
+
+  console.log(`computer: ${computerScore}`);
+  console.log(`human: ${humanScore}`);
 }
 
 
-function playGame () {
-  let rounds = 5;
-
+function playGame (rounds) {
   while (rounds) {
     const humanSelection = getHumanChoice();
     const computerSelection = getComputerChoice();
@@ -42,15 +52,16 @@ function playGame () {
     rounds -= 1;
   }
 
-  console.log('game finished, ');
+  console.log("Game finished!");
   if (humanScore > computerScore) {
-    console.log("you win");
+    console.log("YOU WIN");
   } else if (computerScore > humanScore) {
-    console.log("you lose");
+    console.log("YOU LOSE");
   } else {
-    console.log("it is a draw");
+    console.log("IT IS A DRAW");
   }
 }
 
 
-playGame();
+playGame(5);
+
